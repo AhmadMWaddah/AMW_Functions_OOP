@@ -89,7 +89,6 @@ class RenameFiles:
     def __call__(self):
         return self.rename_func()
 
-
 @RenameFiles
 def rename_files(files_path, wanted_name, needed_extension):
     """
@@ -133,7 +132,6 @@ class MeanSquareError:
     def __call__(self):
         return self.MSE_func()
 
-
 @MeanSquareError
 # Mean Squared Error.
 def mean_square_error(actual_data, predicted_data):
@@ -164,7 +162,6 @@ class MeanData:
     def __call__(self):
         return self.mean_func()
 
-
 @MeanData
 def data_mean(data_values):
     """
@@ -183,7 +180,6 @@ class VarianceData:
     @property
     def __call__(self):
         return self.variance_func()
-
 
 @VarianceData
 def data_variance(data_values, mean_of_data):
@@ -207,7 +203,6 @@ class CoVarianceData:
     @property
     def __call__(self):
         return self.covariance_func()
-
 
 @CoVarianceData
 def data_covariance(features_values, labels_values, features_mean, labels_mean):
@@ -238,7 +233,6 @@ class CoEfficientData:
     def __call__(self):
         return self.coefficient_func()
 
-
 @CoEfficientData
 def data_coefficient(features_values, labels_values):
     """
@@ -267,7 +261,6 @@ class SimpleLinearRegression:
     def __call__(self):
         return self.spl_func()
 
-
 @SimpleLinearRegression
 def simple_linear_regression(features_train, labels_train, features_test):
     """
@@ -291,7 +284,6 @@ class EvaluateModel:
     def __call__(self):
         return self.eval_func()
 
-
 @EvaluateModel
 def evaluate_model(features_train, labels_train, features_test, labels_test):
     """
@@ -304,29 +296,3 @@ def evaluate_model(features_train, labels_train, features_test, labels_test):
     """
     prediction_data = simple_linear_regression(features_train, labels_train, features_test)
     return mean_square_error(prediction_data, labels_test)
-
-
-# -------------------- #
-class Transformer:
-    # Attributes
-    def __init__(self, standarad_scaler, min_Max_Scaler):
-        self.standarad_scaler = standarad_scaler
-        self.min_Max_Scaler = min_Max_Scaler
-
-    @property
-    def __call__(self):
-        self.min_Max_Scaler()
-        self.standarad_scaler()
-
-@Transformer
-def standaradscaler(feature):
-    Mean_feature = mean(feature)
-    std_feature = std(feature)
-    scaled_feature = (feature - Mean_feature) / std_feature
-    return scaled_feature
-
-
-@Transformer
-def minMaxScaler(feature):
-    min_max_scaler = (feature - (np.min(feature))) / ((np.max(feature)) - (np.min(feature)))
-    return min_max_scaler
